@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, View, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
@@ -9,7 +9,7 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { fetchHistory, HistoryEntry } from '@/lib/roll-service';
-import { formatYyyymmdd, shiftYyyymmdd } from '@/utils/date';
+import { formatYyyymmdd, shiftYyyymmdd, utcTodayYyyymmdd } from '@/utils/date';
 
 const computeStreak = (history: HistoryEntry[]) => {
   if (history.length === 0) {
@@ -67,7 +67,7 @@ export default function HistoryScreen() {
         <BlurView intensity={70} tint="dark" style={styles.card}>
           <ThemedText type="subtitle">Current streak</ThemedText>
           <View style={styles.streakRow}>
-            <ThemedText style={styles.streakNumber}>{streak}</ThemedText>
+            <ThemedText style={styles.streakNumber}>{String(streak ?? 0)}</ThemedText>
             <ThemedText style={styles.streakCaption}>days in a row</ThemedText>
           </View>
         </BlurView>
@@ -117,6 +117,12 @@ const styles = StyleSheet.create({
   streakNumber: {
     fontSize: 48,
     fontWeight: '700',
+    fontFamily: Platform.select({ android: 'sans-serif', ios: undefined, default: undefined }),
+    lineHeight: 56,
+    marginTop: 2,
+    // Prevent extra top spacing on Android and avoid visual clipping
+    includeFontPadding: false as unknown as undefined,
+    textAlignVertical: Platform.OS === 'android' ? 'bottom' : undefined,
   },
   streakCaption: {
     fontSize: 16,
