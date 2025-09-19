@@ -1,8 +1,21 @@
-# Welcome to your Expo app 👋
+﻿# Roll the World
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Roll the World is a daily global luck challenge. Each day every player rolls a random number between 1 and today's estimated world population. Your device's best rolls climb a shared leaderboard while your personal history and streaks live on your phone.
 
-## Get started
+## Core Features
+- Daily roll that locks in once per UTC day and celebrates big wins with haptics and confetti.
+- Global leaderboard with a top 100 view plus a personalized "around you" slice.
+- Timeline view that tracks past rolls, ranks, and your current streak of consecutive days played.
+- Privacy-first design that keeps identifiers hashed in Turso and only stores a short device fingerprint locally.
+- Settings panel with quick access to your device hash, cache reset, and runtime configuration values.
+
+## Tech Stack
+- Expo + React Native with Expo Router for navigation.
+- Turso (libSQL) as the backing data store for rolls and leaderboards.
+- Expo services such as expo-linear-gradient, expo-blur, and expo-haptics to elevate the UI.
+- TypeScript throughout the app, with shared utilities in constants, hooks, lib, store, and utils.
+
+## Getting Started
 
 1. Install dependencies
 
@@ -10,41 +23,21 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Configure environment variables by copying .env.example to .env and filling in the Turso connection details.
+
+3. Start the app
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+In the terminal output you can choose to open the project in a development build, Android emulator, iOS simulator, or Expo Go.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Layout
+- app/ holds the routed screens, including the tab-based Home, History, Leaderboard, and Settings views.
+- components/ contains shared UI primitives such as themed text.
+- lib/roll-service.ts encapsulates network calls to Turso for rolls, history, and leaderboards.
+- utils/ provides device, date, and caching helpers used across the app.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Contributing
+Pull requests and feedback that improve the daily roll experience are welcome. If you find an issue, feel free to open a ticket with the bug, what you expected to happen, and the steps to reproduce it.
